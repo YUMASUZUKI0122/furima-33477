@@ -3,7 +3,7 @@ usersテーブル
 | Column             | Type   | Options
 | ---------          | ------ | --------
 | nickname           | string | null: false
-| email              | string | null: false
+| email              | string | null: false, unique: true
 | encrypted_password | string | null: false
 | first_name         | string | null: false
 | last_name          | string | null: false
@@ -39,12 +39,12 @@ purchasesテーブル
 
 | Column             | Type       | Options
 | ------------------ | ---------- | --------
-| user_id            | integer    | null: false
-| category_id        | integer    | null: false
-| state_id           | integer    | null: false
-| burden_id          | integer    | null: false
-| area_id            | integer    | null: false
-| days_id            | integer    | null: false
+| user_id            | integer    | foreign_key: true
+| category_id        | integer    | foreign_key: true
+| state_id           | integer    | foreign_key: true
+| burden_id          | integer    | foreign_key: true
+| area_id            | integer    | foreign_key: true
+| days_id            | integer    | foreign_key: true
 
 
 ### Association
@@ -62,6 +62,7 @@ deliveriesテーブル
 | address       | string       | null: false
 | building_name | string       | 
 | phone_number  | string       | null: false
+| user_id       | integer      | foreign_key: true
 
 ### Association
 
