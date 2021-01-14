@@ -40,17 +40,13 @@ purchasesテーブル
 | Column             | Type       | Options
 | ------------------ | ---------- | --------
 | user_id            | integer    | foreign_key: true
-| category_id        | integer    | foreign_key: true
-| state_id           | integer    | foreign_key: true
-| burden_id          | integer    | foreign_key: true
-| area_id            | integer    | foreign_key: true
-| days_id            | integer    | foreign_key: true
-
+| item_id            | integer    | foreign_key: true
 
 ### Association
 
+- belongs_to :user
+- belongs_to :item
 - has_one :delivery
-
 
 deliveriesテーブル
 
