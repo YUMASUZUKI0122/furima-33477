@@ -14,6 +14,7 @@ usersテーブル
 ### Association
 
 - has_many :items
+- has_many :purchases
 
 
 itemsテーブル
@@ -28,38 +29,30 @@ itemsテーブル
 | area_id     | integer    | null: false
 | days_id     | integer    | null: false
 | price       | integer    | null: false
+| user_id     | integer    | null: false
 
 ### Association
 
-- belongs_to :users
+- belongs_to :user
 
 purchasesテーブル
 
 | Column             | Type       | Options
 | ------------------ | ---------- | --------
-| nickname           | string     | null: false
-| email              | string     | null: false
-| encrypted_password | string     | null: false
-| first_name         | string     | null: false
-| last_name          | string     | null: false
-| first_kananame     | string     | null: false
-| last_kananame      | string     | null: false
-| birthday           | date       | null: false 
-| name               | string     | null: false
-| explanation        | text       | null: false
+| user_id            | integer    | null: false
 | category_id        | integer    | null: false
 | state_id           | integer    | null: false
 | burden_id          | integer    | null: false
 | area_id            | integer    | null: false
 | days_id            | integer    | null: false
-| price              | integer    | null: false
+
 
 ### Association
 
-- has_one :deliverys
+- has_one :delivery
 
 
-deliverysテーブル
+deliveriesテーブル
 
 | Column        | Type         | Options
 | ------------- | ------------ | --------
@@ -72,5 +65,5 @@ deliverysテーブル
 
 ### Association
 
-- has_one :purchases
+- belongs_to :purchases
 
