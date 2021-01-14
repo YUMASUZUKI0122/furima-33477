@@ -1,24 +1,67 @@
-# README
+usersテーブル
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+| Column             | Type   | Options
+| ---------          | ------ | --------
+| nickname           | string | null: false
+| email              | string | null: false, unique: true
+| encrypted_password | string | null: false
+| first_name         | string | null: false
+| last_name          | string | null: false
+| first_kananame     | string | null: false
+| last_kananame      | string | null: false
+| birthday           | date   | null: false
 
-Things you may want to cover:
+### Association
 
-* Ruby version
+- has_many :items
+- has_many :purchases
 
-* System dependencies
 
-* Configuration
+itemsテーブル
 
-* Database creation
+| Column      | Type       | Options
+| ----------- | ---------- | --------
+| name        | string     | null: false
+| explanation | text       | null: false
+| category_id | integer    | null: false
+| state_id    | integer    | null: false
+| burden_id   | integer    | null: false
+| area_id     | integer    | null: false
+| days_id     | integer    | null: false
+| price       | integer    | null: false
+| user_id     | integer    | null: false, foreign_key: true
 
-* Database initialization
+### Association
 
-* How to run the test suite
+- belongs_to :user
+- has_one :purchase
 
-* Services (job queues, cache servers, search engines, etc.)
+purchasesテーブル
 
-* Deployment instructions
+| Column             | Type       | Options
+| ------------------ | ---------- | --------
+| user_id            | integer    | null: false, foreign_key: true
+| item_id            | integer    | null: false, foreign_key: true
 
-* ...
+### Association
+
+- belongs_to :user
+- belongs_to :item
+- has_one :delivery
+
+deliveriesテーブル
+
+| Column        | Type         | Options
+| ------------- | ------------ | --------
+| postal_code   | string       | null: false
+| area_id       | integer      | null: false
+| city          | string       | null: false
+| address       | string       | null: false
+| building_name | string       | 
+| phone_number  | string       | null: false
+| purchase_id   | integer      | null: false, foreign_key: true
+
+### Association
+
+- belongs_to :purchase
+
