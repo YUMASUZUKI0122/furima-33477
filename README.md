@@ -29,7 +29,7 @@ itemsテーブル
 | area_id     | integer    | null: false
 | days_id     | integer    | null: false
 | price       | integer    | null: false
-| user_id     | integer    | null: false
+| user_id     | integer    | null: false, foreign_key: true
 
 ### Association
 
@@ -39,8 +39,8 @@ purchasesテーブル
 
 | Column             | Type       | Options
 | ------------------ | ---------- | --------
-| user_id            | integer    | foreign_key: true
-| item_id            | integer    | foreign_key: true
+| user_id            | integer    | null: false, foreign_key: true
+| item_id            | integer    | null: false, foreign_key: true
 
 ### Association
 
@@ -58,9 +58,9 @@ deliveriesテーブル
 | address       | string       | null: false
 | building_name | string       | 
 | phone_number  | string       | null: false
-| user_id       | integer      | foreign_key: true
+| purchase_id   | integer      | null: false, foreign_key: true
 
 ### Association
 
-- belongs_to :purchases
+- belongs_to :purchase
 
