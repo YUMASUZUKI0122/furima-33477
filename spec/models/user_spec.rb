@@ -92,12 +92,6 @@ describe 'ユーザー新規登録' do
       @user.valid?
       expect(@user.errors.full_messages).to include("Last kananame Full-width katakana characters")
     end
-    it "passwordは半角英数混合でなければ登録できない" do
-      @user.password = 'aaaaaaa'
-      @user.password_confirmation = 'aaaaaaa'
-      @user.valid?
-      expect(@user.errors.full_messages).to include("Password Password Include both letters and numbers")
-    end
     it "passwordは英語のみでは登録できない" do
       @user.password = 'bbbbbb'
       @user.password_confirmation = 'bbbbbb'
