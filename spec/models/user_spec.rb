@@ -9,8 +9,7 @@ describe 'ユーザー新規登録' do
 
   context '新規登録できるとき' do
     it "nickname、email、password、password_confirmation、first_name、last_name、first_kananame、last_kananame、birthdayが存在すれば登録できる" do
-    end
-    it "passwordとpassword_confirmationが6文字以上であれば登録できる" do
+      expect(@user).to be_valid
     end
   end
  
@@ -93,11 +92,34 @@ describe 'ユーザー新規登録' do
       @user.valid?
       expect(@user.errors.full_messages).to include("Last kananame Full-width katakana characters")
     end
-    it "passwordは半角英数混合(半角英語のみ)" do
+    it "passwordは半角英数混合でなければ登録できない" do
       @user.password = 'aaaaaaa'
       @user.password_confirmation = 'aaaaaaa'
       @user.valid?
       expect(@user.errors.full_messages).to include("Password Password Include both letters and numbers")
+    end
+    it "passwordは英語のみでは登録できない" do
+      @user.password = 'bbbbbb'
+      @user.password_confirmation = 'bbbbbb'
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Password Password Include both letters and numbers")
+    end
+    it "passwordは数字のみでは登録できない" do
+      @user.password = '111111'
+      @user.password_confirmation = '111111'
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Password Password Include both letters and numbers")
+    end
+    it "passwordは全角では登録できない" do
+      @user.password = 'ＡＡＡＡＡＡ'
+      @user.password_confirmation = 'ＡＡＡＡＡＡ'
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Password Password Include both letters and numbers")
+    end
+    it "emailは＠なしでは登録できない" do
+      @user.email = "aaaaaa"
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Email is invalid")
     end
   end
 end
