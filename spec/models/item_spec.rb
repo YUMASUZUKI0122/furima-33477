@@ -59,13 +59,23 @@ describe '商品出品' do
       @item.valid?
       expect(@item.errors.full_messages).to include("Image can't be blank")
     end
-    it "priceは半角数字のみ" do
+    it "priceは全角数字では登録できない" do
       @item.price= "５５５"
       @item.valid?
       expect(@item.errors.full_messages).to include("Price Price Out of setting range", "Price Half-width number")
     end
-    it "priceは300以上9999999以下でなければ登録できない" do
+    it "priceは半角英語では登録できない" do
+      @item.price= "aaa"
+      @item.valid?
+      expect(@item.errors.full_messages).to include("Price Price Out of setting range", "Price Half-width number")
+    end
+    it "priceは300以上でなければ登録できない" do
       @item.price= "299"
+      @item.valid?
+      expect(@item.errors.full_messages).to include("Price Price Out of setting range")
+    end
+    it "priceは9999999以下でなければ登録できない" do
+      @item.price= "10000000"
       @item.valid?
       expect(@item.errors.full_messages).to include("Price Price Out of setting range")
     end
