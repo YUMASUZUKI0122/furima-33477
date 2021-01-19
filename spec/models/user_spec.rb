@@ -96,19 +96,19 @@ describe 'ユーザー新規登録' do
       @user.password = 'bbbbbb'
       @user.password_confirmation = 'bbbbbb'
       @user.valid?
-      expect(@user.errors.full_messages).to include("Password Password Include both letters and numbers")
+      expect(@user.errors.full_messages).to include("Password Include both letters and numbers")
     end
     it "passwordは数字のみでは登録できない" do
       @user.password = '111111'
       @user.password_confirmation = '111111'
       @user.valid?
-      expect(@user.errors.full_messages).to include("Password Password Include both letters and numbers")
+      expect(@user.errors.full_messages).to include("Password Include both letters and numbers")
     end
     it "passwordは全角では登録できない" do
       @user.password = 'ＡＡＡＡＡＡ'
       @user.password_confirmation = 'ＡＡＡＡＡＡ'
       @user.valid?
-      expect(@user.errors.full_messages).to include("Password Password Include both letters and numbers")
+      expect(@user.errors.full_messages).to include("Password Include both letters and numbers")
     end
     it "emailは＠なしでは登録できない" do
       @user.email = "aaaaaa"
