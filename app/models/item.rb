@@ -9,8 +9,6 @@ class Item < ApplicationRecord
   belongs_to :area
   belongs_to :day
   
-  validate :price
-
   with_options presence: true, numericality: { other_than: 1 } do
     validates :category_id
     validates :state_id
