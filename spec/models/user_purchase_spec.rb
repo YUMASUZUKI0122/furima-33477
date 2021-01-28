@@ -8,8 +8,12 @@ RSpec.describe UserPurchase, type: :model do
  describe '商品購入' do
 
   context '商品購入できるとき' do
-    it "postal_codeとarea_idとcityとaddressとphone_numberとuser_idとitem_idとtokenがあれば購入できる" do
+    it "postal_codeとarea_idとcityとaddressとbuilding_nameとphone_numberとuser_idとitem_idとtokenがあれば購入できる" do
      expect(@user_purchase).to be_valid
+    end
+    it 'building_nameがなくても保存できる' do
+      @user_purchase.building_name = ''
+      expect(@user_purchase).to be_valid
     end
   end
 
@@ -53,13 +57,23 @@ RSpec.describe UserPurchase, type: :model do
     it "user_idが空では購入できない" do
       @user_purchase.user_id = ""
       @user_purchase.valid?
-      expect(@user_purchase.errors.full_messages).to include("Postal code Input correctly")
+      expect(@user_purchase.errors.full_messages).to include("User can't be blank")
     end
     it "item_idが空では購入できない" do
       @user_purchase.item_id = ""
       @user_purchase.valid?
+      expect(@user_purchase.errors.full_messages).to include("Item can't be blank")
+    end
+    #it "phone_nunberは11桁以内でないと登録できない" do
+      #@user_purchase.phone_number = "1234567891023"
+     # @user_purchase.valid?
+      #expect(@user_purchase.errors.full_messages).to include("Phone number is invalid")
+    #end
+    it "postal_codeはハイフン無しでは登録できない" do
+      @user_purchase.postal_code = 4444444
+      @user_purchase.valid?
       expect(@user_purchase.errors.full_messages).to include("Postal code Input correctly")
     end
-  end
+end
 end
 end
