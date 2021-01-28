@@ -1,10 +1,10 @@
 class PurchaseController < ApplicationController
+  before_action :authenticate_user!, only: [:index]
   before_action :move_to_index, only: [:index]
-
   def index
     @user_purchase = UserPurchase.new
     @item = Item.find(params[:item_id])
-    if user_signed_in? && current_user == @item.user
+    if current_user == @item.user
        redirect_to root_path
     end
   end
@@ -28,11 +28,6 @@ class PurchaseController < ApplicationController
   params.require(:user_purchase).permit(:postal_code, :area_id, :city, :address, :building_name, :phone_number).merge(user_id: current_user.id, item_id: params[:item_id], purchase_id: params[:pur],token: params[:token])
  end
 
- def move_to_index
-  unless user_signed_in? 
-    redirect_to new_user_session_path
-  end
- end
 
  def pay_item
   Payjp.api_key = ENV["PAYJP_SECRET_KEY"]  
@@ -41,6 +36,13 @@ class PurchaseController < ApplicationController
         card: purchase_params[:token],    
         currency: 'jpy'               
       )
+ end
+
+ def move_to_index
+  @item = Item.find(params[:item_id])
+  if @item.purchase.present? 
+    redirect_to root_path
+  end
  end
   
 end

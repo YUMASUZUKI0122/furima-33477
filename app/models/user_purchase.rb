@@ -9,12 +9,13 @@ class UserPurchase
    validates :address
    validates :phone_number,numericality:{ with: /\A[0-9]+\z/, message: 'Input only number' }
    validates :token
+   validates :user_id
+   validates :item_id
   end
 
   def save
-    # binding.pry
     purchase = Purchase.create!(user_id: user_id, item_id: item_id)
-    Delivery.create!(postal_code: postal_code, area_id: area_id, city: city, address: address, building_name: building_name, phone_number: phone_number, purchase_id: purchase.id)
+    Delivery.create(postal_code: postal_code, area_id: area_id, city: city, address: address, building_name: building_name, phone_number: phone_number, purchase_id: purchase.id)
   end
 end
 
