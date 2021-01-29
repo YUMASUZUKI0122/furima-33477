@@ -64,11 +64,11 @@ RSpec.describe UserPurchase, type: :model do
       @user_purchase.valid?
       expect(@user_purchase.errors.full_messages).to include("Item can't be blank")
     end
-    #it "phone_nunberは11桁以内でないと登録できない" do
-      #@user_purchase.phone_number = "1234567891023"
-     # @user_purchase.valid?
-      #expect(@user_purchase.errors.full_messages).to include("Phone number is invalid")
-    #end
+    it "phone_nunberは11桁以内でないと登録できない" do
+      @user_purchase.phone_number = "1234567891023"
+      @user_purchase.valid?
+      expect(@user_purchase.errors.full_messages).to include("Phone number Input only number")
+    end
     it "postal_codeはハイフン無しでは登録できない" do
       @user_purchase.postal_code = 4444444
       @user_purchase.valid?
