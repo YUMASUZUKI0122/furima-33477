@@ -2,7 +2,9 @@ require 'rails_helper'
 
 RSpec.describe UserPurchase, type: :model do
   before do
-    @user_purchase = FactoryBot.build(:user_purchase) 
+    @user = FactoryBot.build(:user)
+    @item = FactoryBot.build(:item)
+    @user_purchase = FactoryBot.build(:user_purchase, user_id: :user, item_id: :item) 
  end
 
  describe '商品購入' do
