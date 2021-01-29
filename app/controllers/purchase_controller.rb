@@ -4,10 +4,10 @@ class PurchaseController < ApplicationController
   before_action :set_purchase, only: [:index, :create]
 
   def index
-    @user_purchase = UserPurchase.new
     if current_user == @item.user
        redirect_to root_path
     end
+    @user_purchase = UserPurchase.new
   end
 
   def create
